@@ -41,6 +41,63 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Function to render activities
+  async function renderActivities(activities) {
+    const list = document.getElementById('activities-list');
+    list.innerHTML = '';
+
+    Object.entries(activities).forEach(([name, activity]) => {
+      const card = document.createElement('div');
+      card.className = 'activity-card';
+
+      card.innerHTML = `
+        <h4>${name}</h4>
+        <p>${activity.description}</p>
+        <p><strong>Schedule:</strong> ${activity.schedule}</p>
+        <p><strong>Capacity:</strong> ${activity.participants.length}/${activity.max_participants}</p>
+      `;
+
+      // Participants section (pretty, bulleted list)
+      const participantsSection = document.createElement('div');
+      participantsSection.className = 'participants-section';
+
+      const header = document.createElement('div');
+      header.className = 'participant-header';
+
+      const title = document.createElement('h5');
+      title.textContent = 'Participants';
+      header.appendChild(title);
+
+      const count = document.createElement('span');
+      count.className = 'participant-count';
+      count.textContent = `${activity.participants.length} / ${activity.max_participants}`;
+      header.appendChild(count);
+
+      participantsSection.appendChild(header);
+
+      if (!activity.participants || activity.participants.length === 0) {
+        const none = document.createElement('p');
+        none.className = 'info';
+        none.textContent = 'No participants yet';
+        participantsSection.appendChild(none);
+      } else {
+        const ul = document.createElement('ul');
+        ul.className = 'participants-list';
+
+        activity.participants.forEach(email => {
+          const li = document.createElement('li');
+          li.textContent = email;
+          ul.appendChild(li);
+        });
+
+        participantsSection.appendChild(ul);
+      }
+
+      card.appendChild(participantsSection);
+      list.appendChild(card);
+    });
+  }
+
   // Handle form submission
   signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
