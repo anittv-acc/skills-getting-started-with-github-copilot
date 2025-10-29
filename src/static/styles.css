@@ -172,15 +172,40 @@ footer {
 }
 
 .participants-list {
-  list-style: disc;
-  margin-left: 18px;
-  padding-left: 8px;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 .participants-list li {
-  padding: 4px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
   color: #333;
   font-size: 0.95rem;
+  border-bottom: 1px dashed #eee;
+}
+
+.participant-email {
+  word-break: break-word;
+  margin-right: 8px;
+}
+
+.participant-remove {
+  background: transparent;
+  border: none;
+  color: #c62828;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.12s ease;
+}
+
+.participant-remove:hover {
+  background: rgba(198, 40, 40, 0.08);
 }
 
 /* Slight visual improvement for long lists on small cards */
