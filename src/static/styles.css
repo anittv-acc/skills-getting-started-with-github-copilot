@@ -208,6 +208,19 @@ footer {
   background: rgba(198, 40, 40, 0.08);
 }
 
+.participant-remove .remove-icon {
+  display: inline-block;
+  margin-right: 6px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.participant-remove .remove-text {
+  font-size: 0.85rem;
+  color: #c62828;
+  vertical-align: middle;
+}
+
 /* Slight visual improvement for long lists on small cards */
 @media (max-width: 520px) {
   .participants-list {

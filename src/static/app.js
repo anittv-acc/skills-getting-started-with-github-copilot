@@ -84,7 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const removeBtn = document.createElement('button');
           removeBtn.className = 'participant-remove';
           removeBtn.title = 'Unregister participant';
-          removeBtn.innerHTML = '&times;';
+          // Show an icon and a clear "Delete" label for accessibility and clarity
+          removeBtn.innerHTML = '<span class="remove-icon">&times;</span><span class="remove-text">Delete</span>';
+          removeBtn.setAttribute('aria-label', `Remove ${email} from ${name}`);
           removeBtn.addEventListener('click', async (e) => {
             e.stopPropagation();
             // Call DELETE endpoint to remove participant
@@ -148,11 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         messageDiv.textContent = result.message;
-        messageDiv.className = "success";
+        // use consistent classes so CSS matches other messages
+        messageDiv.className = "message success";
         signupForm.reset();
+        // Refresh activities so the newly-registered participant appears immediately
+        await fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
-        messageDiv.className = "error";
+        messageDiv.className = "message error";
       }
 
       messageDiv.classList.remove("hidden");
@@ -163,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 5000);
     } catch (error) {
       messageDiv.textContent = "Failed to sign up. Please try again.";
-      messageDiv.className = "error";
+      messageDiv.className = "message error";
       messageDiv.classList.remove("hidden");
       console.error("Error signing up:", error);
     }
